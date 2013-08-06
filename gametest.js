@@ -18,6 +18,14 @@ $(document).ready(function(){
 			direction:null,
 			speed:2.5
 		};
+        
+        enemy = {
+            posX:430,
+            posY:200,
+            len:70,
+            direction:null,
+            speed:2.5
+        };
 		
 		//defines a ball
 		ball = {
@@ -49,9 +57,21 @@ $(document).ready(function(){
 	// game logic
 	function update(){
 		//move player
-		if (player.direction === "up" && player.posY > 0) player.posY = player.posY - player.speed;
-		else if (player.direction === "down" && player.posY < width - player.len) player.posY = player.posY + player.speed;
-		
+		if (player.direction === "up" && player.posY > 0){
+            player.posY = player.posY - player.speed;
+		}
+		else if (player.direction === "down" && player.posY < width - player.len){
+    	    player.posY = player.posY + player.speed;
+		}
+        
+        //move enemy
+        if (ball.posY > enemy.posY - 35){
+            enemy.posY = enemy.posY + enemy.speed;
+        }
+        else if (ball.posY < enemy.posY + 35){
+            enemy.posY = enemy.posY - enemy.speed;
+        }
+        
 		//move ball
 		ball.posX = ball.posX + ball.vX;
 		ball.posY = ball.posY + ball.vY;
@@ -78,6 +98,11 @@ $(document).ready(function(){
 		if (player.posX >= (ball.posX - 7) && (player.posY <= ball.posY && player.posY + player.len >= ball.posY)){
 			ball.vX = ball.vX * -1;
 		}
+        
+        //check ball collision with enemy
+        if (enemy.posX <= (ball.posX - 7) && (enemy.posY <= ball.posY && enemy.posY + enemy.len >= ball.posY)){
+			ball.vX = ball.vX * -1;
+		}
 	}
 	
 	// draws the game objects
@@ -92,6 +117,10 @@ $(document).ready(function(){
 		// draws the player
 		ctx.fillStyle = "white";
 		ctx.fillRect(player.posX, player.posY, 10, player.len);
+        
+        //draws the enemy
+        ctx.fillStyle = "white";
+		ctx.fillRect(enemy.posX, enemy.posY, 10, enemy.len);
 		
 		// draws the ball
 		ctx.beginPath();
