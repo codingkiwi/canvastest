@@ -1,7 +1,7 @@
 // wait for HTML to load before executing script
 $(document).ready(function(){
     var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
 	var width = 450;
 	var fps = 10;
 	
@@ -16,7 +16,7 @@ $(document).ready(function(){
 			posY:200,
 			len:70,
 			direction:null,
-			speed:2.5
+			speed:2
 		};
         
         enemy = {
@@ -24,7 +24,7 @@ $(document).ready(function(){
             posY:200,
             len:70,
             direction:null,
-            speed:2.5
+            speed:2
         };
 		
 		//defines a ball
@@ -35,6 +35,8 @@ $(document).ready(function(){
 			vY:1.5,
 			radius:7
 		};
+        
+        var snd_beep = new Audio("beep.wav");
 	}
 	init();
 	
@@ -65,10 +67,10 @@ $(document).ready(function(){
 		}
         
         //move enemy
-        if (ball.posY > enemy.posY - 35){
+        if (ball.posY > enemy.posY + 35){
             enemy.posY = enemy.posY + enemy.speed;
         }
-        else if (ball.posY < enemy.posY + 35){
+        else if (ball.posY < enemy.posY - 35){
             enemy.posY = enemy.posY - enemy.speed;
         }
         
@@ -96,12 +98,18 @@ $(document).ready(function(){
 		
 		//check ball collision with player
 		if (player.posX >= (ball.posX - 7) && (player.posY <= ball.posY && player.posY + player.len >= ball.posY)){
-			ball.vX = ball.vX * -1;
+			// reverse ball's horizontal movement
+            ball.vX = ball.vX * -1;
+            // play hit sound
+            snd_beep.play();
 		}
         
         //check ball collision with enemy
-        if (enemy.posX <= (ball.posX - 7) && (enemy.posY <= ball.posY && enemy.posY + enemy.len >= ball.posY)){
-			ball.vX = ball.vX * -1;
+        if (enemy.posX <= (ball.posX + 7) && (enemy.posY <= ball.posY && enemy.posY + enemy.len >= ball.posY)){
+			// reverse ball's horizontal movement
+            ball.vX = ball.vX * -1;
+            // play hit sound
+            snd_beep.play();
 		}
 	}
 	
