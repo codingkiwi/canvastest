@@ -36,7 +36,8 @@ $(document).ready(function(){
 			radius:7
 		};
         
-        var snd_beep = new Audio("beep.wav");
+        // declare a variable for audio element
+        var soundEfx;
 	}
 	init();
 	
@@ -101,7 +102,7 @@ $(document).ready(function(){
 			// reverse ball's horizontal movement
             ball.vX = ball.vX * -1;
             // play hit sound
-            snd_beep.play();
+            soundEfx.play();
 		}
         
         //check ball collision with enemy
@@ -109,30 +110,33 @@ $(document).ready(function(){
 			// reverse ball's horizontal movement
             ball.vX = ball.vX * -1;
             // play hit sound
-            snd_beep.play();
+            soundEfx.play();
 		}
 	}
 	
 	// draws the game objects
 	function paint(){
-	
+	    
+        // assign Audio element to variable
+        soundEfx = document.getElementById("soundEfx");
+        
 		// draws the canvas
-		ctx.fillStyle = "black";
+		ctx.fillStyle = "#FF4A4A";
 		ctx.fillRect(0, 0, width, width);
-		ctx.strokeStyle = "black";
+		ctx.strokeStyle = "#FF4A4A";
 		ctx.strokeRect(0, 0, width, width);
 		
 		// draws the player
-		ctx.fillStyle = "white";
+		ctx.fillStyle = "#FFCBC7";
 		ctx.fillRect(player.posX, player.posY, 10, player.len);
         
         //draws the enemy
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "#FFCBC7";
 		ctx.fillRect(enemy.posX, enemy.posY, 10, enemy.len);
 		
 		// draws the ball
 		ctx.beginPath();
-		ctx.fillStyle = "white";
+		ctx.fillStyle = "#FFCBC7";
 		ctx.arc(ball.posX, ball.posY, ball.radius, 0, 2 * Math.PI, true);
 		ctx.fill();
 	}
