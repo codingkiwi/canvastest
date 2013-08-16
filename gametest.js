@@ -1,11 +1,13 @@
-// wait for HTML to load before executing script
+//wait for HTML to load before executing script
 $(document).ready(function(){
+    
+    //declare basic cavas variables
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
 	var width = 450;
 	var fps = 10;
 	
-	// starts the game and calls the paint function every x milliseconds
+	//starts the game and calls the paint function every x milliseconds
 	function init()	{
 		if(typeof game_loop != "undefined") clearInterval(game_loop);
 		game_loop = setInterval(mainLoop, fps);
@@ -36,19 +38,19 @@ $(document).ready(function(){
 			radius:7
 		};
         
-        // declare a variable for audio element
+        //declare a variable for audio element
         var soundEfx;
 	}
 	init();
 	
-	// controls the main game loop
+	//controls the main game loop
 	function mainLoop(){
 		checkinput();
 		update();
 		paint();
 	}
 	
-	// controls user input
+	//controls user input
 	function checkinput(){
 		$(document).keydown(function(e){
 		var key = e.which;
@@ -57,9 +59,9 @@ $(document).ready(function(){
 		})
 	}
 	
-	// game logic
+	//game logic
 	function update(){
-		//move player
+		//move player based on current direction
 		if (player.direction === "up" && player.posY > 0){
             player.posY = player.posY - player.speed;
 		}
@@ -67,7 +69,7 @@ $(document).ready(function(){
     	    player.posY = player.posY + player.speed;
 		}
         
-        //move enemy
+        //move enemy up or down based on ball position
         if (ball.posY > enemy.posY + 35){
             enemy.posY = enemy.posY + enemy.speed;
         }
@@ -79,7 +81,7 @@ $(document).ready(function(){
 		ball.posX = ball.posX + ball.vX;
 		ball.posY = ball.posY + ball.vY;
 
-		//check ball collision with boundary
+		//check ball collision with left or right boundary
 		if (ball.posX - 7 <= 0){
 			//game restart
 			init();
@@ -88,6 +90,7 @@ $(document).ready(function(){
 			//game restart
 			init();
 		}
+        //check ball collision with top or bottom boundary
 		else if (ball.posY - 7 <= 0){
 			//bounce
 			ball.vY = ball.vY * -1;
@@ -99,34 +102,34 @@ $(document).ready(function(){
 		
 		//check ball collision with player
 		if (player.posX >= (ball.posX - 7) && (player.posY <= ball.posY && player.posY + player.len >= ball.posY)){
-			// reverse ball's horizontal movement
+			//reverse ball's horizontal movement
             ball.vX = ball.vX * -1;
-            // play hit sound
+            //play hit sound
             soundEfx.play();
 		}
         
         //check ball collision with enemy
         if (enemy.posX <= (ball.posX + 7) && (enemy.posY <= ball.posY && enemy.posY + enemy.len >= ball.posY)){
-			// reverse ball's horizontal movement
+			//reverse ball's horizontal movement
             ball.vX = ball.vX * -1;
-            // play hit sound
+            //play hit sound
             soundEfx.play();
 		}
 	}
 	
-	// draws the game objects
+	//draws the game objects
 	function paint(){
 	    
-        // assign Audio element to variable
+        //assign Audio element to variable
         soundEfx = document.getElementById("soundEfx");
         
-		// draws the canvas
+		//draws the canvas
 		ctx.fillStyle = "#FF4A4A";
 		ctx.fillRect(0, 0, width, width);
 		ctx.strokeStyle = "#FF4A4A";
 		ctx.strokeRect(0, 0, width, width);
 		
-		// draws the player
+		//draws the player
 		ctx.fillStyle = "#FFCBC7";
 		ctx.fillRect(player.posX, player.posY, 10, player.len);
         
@@ -134,7 +137,7 @@ $(document).ready(function(){
         ctx.fillStyle = "#FFCBC7";
 		ctx.fillRect(enemy.posX, enemy.posY, 10, enemy.len);
 		
-		// draws the ball
+		//draws the ball
 		ctx.beginPath();
 		ctx.fillStyle = "#FFCBC7";
 		ctx.arc(ball.posX, ball.posY, ball.radius, 0, 2 * Math.PI, true);
