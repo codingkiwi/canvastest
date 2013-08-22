@@ -6,6 +6,9 @@ $(document).ready(function(){
     var ctx = canvas.getContext("2d");
 	var width = 450;
 	var fps = 10;
+    
+    //declare gamestate variable
+    var gamestate = "stop";
 	
 	//starts the game and calls the paint function every x milliseconds
 	function init()	{
@@ -43,8 +46,8 @@ $(document).ready(function(){
 	}
 	init();
 	
-	//controls the main game loop
-	function mainLoop(){
+    //controls the main game loop
+    function mainLoop(){
 		checkinput();
 		update();
 		paint();
@@ -70,10 +73,10 @@ $(document).ready(function(){
 		}
         
         //move enemy up or down based on ball position
-        if (ball.posY > enemy.posY + 35){
+        if (ball.posY > enemy.posY + 35 && enemy.posY + 70 < width){
             enemy.posY = enemy.posY + enemy.speed;
         }
-        else if (ball.posY < enemy.posY + 35){
+        else if (ball.posY < enemy.posY + 35 && enemy.posY > 0){
             enemy.posY = enemy.posY - enemy.speed;
         }
         
