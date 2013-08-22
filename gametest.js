@@ -48,12 +48,17 @@ $(document).ready(function(){
 	
     //controls the main game loop
     function mainLoop(){
-		if(gamestate === "start")
+		if (gamestate === "start")
+            checkinput();
             paintstart();
-        if(gamestate === "run"){
+        if (gamestate === "run"){
             checkinput();
     	    update();
 		    paint();    
+        }
+        if (gamestate === "stop"){
+            checkinput();
+            paint();
         }
 	}
 	
@@ -63,6 +68,7 @@ $(document).ready(function(){
 		var key = e.which;
 		if (key == "38") player.direction = "up";
 		else if (key == "40") player.direction = "down";
+        else if (key == "32") gamestate = "run";
 		})
 	}
 	
