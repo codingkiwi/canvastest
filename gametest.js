@@ -65,10 +65,18 @@ $(document).ready(function(){
 	//controls user input
 	function checkinput(){
 		$(document).keydown(function(e){
-		var key = e.which;
-		if (key == "38") player.direction = "up";
-		else if (key == "40") player.direction = "down";
-        else if (key == "32") gamestate = "run";
+    		var key = e.which;
+    		if (key == "38") player.direction = "up";
+    		else if (key == "40"){
+        	    player.direction = "down";
+    		}
+            else if (key == "32"){
+                gamestate = "run";
+            }
+            else if (key == "82"){
+                init();
+                gamestate = "run";
+            }
 		})
 	}
 	
@@ -96,12 +104,12 @@ $(document).ready(function(){
 
 		//check ball collision with left or right boundary
 		if (ball.posX - 7 <= 0){
-			//game restart
-			init();
+			//game stop
+			gamestate = "stop"; 
 		}
 		else if (ball.posX + 7 >= width){
-			//game restart
-			init();
+			//game stop
+			gamestate = "stop";
 		}
         //check ball collision with top or bottom boundary
 		else if (ball.posY - 7 <= 0){
@@ -174,5 +182,12 @@ $(document).ready(function(){
 		ctx.fillStyle = "white";
 		ctx.arc(ball.posX, ball.posY, ball.radius, 0, 2 * Math.PI, true);
 		ctx.fill();
+        
+        //paint restart instructions
+        if (gamestate === "stop"){
+            ctx.fillStyle = "white";
+            ctx.font="bold 30px Courier";
+            ctx.fillText("Press 'R' To Restart",45,50);    
+        }
 	}
 })
