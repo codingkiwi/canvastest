@@ -8,7 +8,7 @@ $(document).ready(function(){
 	var fps = 10;
     
     //declare gamestate variable
-    var gamestate = "stop";
+    var gamestate = "start";
 	
 	//starts the game and calls the paint function every x milliseconds
 	function init()	{
@@ -48,9 +48,13 @@ $(document).ready(function(){
 	
     //controls the main game loop
     function mainLoop(){
-		checkinput();
-		update();
-		paint();
+		if(gamestate === "start")
+            paintstart();
+        if(gamestate === "run"){
+            checkinput();
+    	    update();
+		    paint();    
+        }
 	}
 	
 	//controls user input
@@ -119,6 +123,12 @@ $(document).ready(function(){
             soundEfx.play();
 		}
 	}
+    
+    //draw initial game splash screen
+    function paintstart(){
+        ctx.font="20px Georgia";
+        ctx.fillText("Hello World!",10,50);
+    }
 	
 	//draws the game objects
 	function paint(){
