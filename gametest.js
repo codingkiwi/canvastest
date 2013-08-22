@@ -9,7 +9,7 @@ $(document).ready(function(){
 	
 	//starts the game and calls the paint function every x milliseconds
 	function init()	{
-		if(typeof game_loop != "undefined") clearInterval(game_loop);
+		if (typeof game_loop != "undefined") clearInterval(game_loop);
 		game_loop = setInterval(mainLoop, fps);
 		
 		//defines a player object
@@ -54,8 +54,8 @@ $(document).ready(function(){
 	function checkinput(){
 		$(document).keydown(function(e){
 		var key = e.which;
-		if(key == "38") player.direction = "up";
-		else if(key == "40") player.direction = "down";
+		if (key == "38") player.direction = "up";
+		else if (key == "40") player.direction = "down";
 		})
 	}
 	
@@ -73,7 +73,7 @@ $(document).ready(function(){
         if (ball.posY > enemy.posY + 35){
             enemy.posY = enemy.posY + enemy.speed;
         }
-        else if (ball.posY < enemy.posY - 35){
+        else if (ball.posY < enemy.posY + 35){
             enemy.posY = enemy.posY - enemy.speed;
         }
         
@@ -124,22 +124,22 @@ $(document).ready(function(){
         soundEfx = document.getElementById("soundEfx");
         
 		//draws the canvas
-		ctx.fillStyle = "#FF4A4A";
+		ctx.fillStyle = "black";
 		ctx.fillRect(0, 0, width, width);
-		ctx.strokeStyle = "#FF4A4A";
+		ctx.strokeStyle = "black";
 		ctx.strokeRect(0, 0, width, width);
 		
 		//draws the player
-		ctx.fillStyle = "#FFCBC7";
+		ctx.fillStyle = "white";
 		ctx.fillRect(player.posX, player.posY, 10, player.len);
         
         //draws the enemy
-        ctx.fillStyle = "#FFCBC7";
+        ctx.fillStyle = "white";
 		ctx.fillRect(enemy.posX, enemy.posY, 10, enemy.len);
 		
 		//draws the ball
 		ctx.beginPath();
-		ctx.fillStyle = "#FFCBC7";
+		ctx.fillStyle = "white";
 		ctx.arc(ball.posX, ball.posY, ball.radius, 0, 2 * Math.PI, true);
 		ctx.fill();
 	}
