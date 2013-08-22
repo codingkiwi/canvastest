@@ -126,8 +126,21 @@ $(document).ready(function(){
     
     //draw initial game splash screen
     function paintstart(){
-        ctx.font="20px Georgia";
-        ctx.fillText("Hello World!",10,50);
+        //draws the canvas
+		ctx.fillStyle = "black";
+		ctx.fillRect(0, 0, width, width);
+		ctx.strokeStyle = "black";
+		ctx.strokeRect(0, 0, width, width);
+        
+        //draw title
+        ctx.fillStyle = "white";
+        ctx.font="bold 80px Courier";
+        ctx.fillText("PONG",120,150);
+        
+        //draw start instructions
+        ctx.fillStyle = "white";
+        ctx.font="bold 30px Courier";
+        ctx.fillText("Press Spacebar To Start",20,250);
     }
 	
 	//draws the game objects
