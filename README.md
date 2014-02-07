@@ -1,6 +1,3 @@
-canvastest || pong
-====================
-
-This is a test of the HTML5 canvas element
+A basic HTML5 Pong game
 
 
